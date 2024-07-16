@@ -33,6 +33,8 @@
 #'   character vector. Specifies OpenAI API key.
 #' @param openai_organization optional; defaults to `NULL`; a length one
 #'   character vector. Specifies OpenAI organization.
+#' @param seed optional; defaults to `NULL`; a length one
+#'   numeric vector with integer values. Attempts deterministic sampling.
 #' @return Returns a list, elements of which contain chat completion(s) and
 #'   supplementary information.
 #' @examples \dontrun{
@@ -73,7 +75,8 @@ create_chat_completion<- function(
         logit_bias = NULL,
         user = NULL,
         openai_api_key = Sys.getenv("OPENAI_API_KEY"),
-        openai_organization = NULL
+        openai_organization = NULL,
+        seed = NULL
 ) {
 
     #---------------------------------------------------------------------------
@@ -202,6 +205,7 @@ create_chat_completion<- function(
     body[["frequency_penalty"]] <- frequency_penalty
     body[["logit_bias"]] <- logit_bias
     body[["user"]] <- user
+    body[["seed"]] <- seed
 
     #---------------------------------------------------------------------------
     # Make a request and parse it
